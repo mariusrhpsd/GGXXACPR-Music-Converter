@@ -1,6 +1,8 @@
 # Stuff
+$ErrorActionPreference= 'silentlycontinue'
 $computername=$env:computername
-#$ErrorActionPreference= 'silentlycontinue'
+New-Item ".\output" -itemType Directory
+New-Item ".\bin\input_wav" -itemType Directory
 Add-Type -AssemblyName System.Windows.Forms
 $TextInfo = (Get-Culture).TextInfo
 # Arranges of characters and their respective track number
