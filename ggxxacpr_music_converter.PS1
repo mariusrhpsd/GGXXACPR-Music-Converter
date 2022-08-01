@@ -7,6 +7,7 @@ Add-Type -AssemblyName System.Windows.Forms | Out-Null
 $TextInfo = (Get-Culture).TextInfo
 # Arranges of characters and their respective track number
 $characters = [System.Collections.Generic.List[System.Object]](Get-Content -Path .\bin\characters.txt )
+$characters2 = [System.Collections.Generic.List[System.Object]](Get-Content -Path .\bin\characters.txt)
 $charas = $characters.tolower()
 $track = @(Get-Content -Path .\bin\tracks.txt)
 #$charas = @('anji','axl','baiken','select','chipp','dizzy','faust','ino','jam','johnny','ky','may','millia','potemkin','slayer','sol','testament','venom','bridget','zappa','eddie','robo-ky','kliff','justice','aba','order sol','boss','same1','same2','existence','noontide','no mercy','still in the dark','keep the flag flying','construction site','construction site night','continue','game over','grief','main menu','staff1','staff2','staff3','versus')
@@ -50,10 +51,10 @@ foreach ($mp3 in $mp3input){
     Clear-Host
     Write-Host "PLEASE SELECT YOUR CHARACTER FOR`n"$mp3":"
     $characters |Select-Object @{Name='String';Expression={$_}}|Format-Wide String -Column 3
-    $song = Read-Host "`nSkip = next file `nConvert = go to convert`nEQuit = Quit the program"
+    $song = Read-Host "`nSkip = next file `nConvert = go to convert`nQuit = Quit the program"
     $song = $song.ToLower()
     if ($song -eq 'skip'){continue}
-    if ($song -eq 'exit'){break}
+    if ($song -eq 'convert'){break}
     if ($song -eq 'quit'){exit}
     while ($charas -notcontains $song){
         $song = Read-Host "Please select an item from the list"
@@ -62,10 +63,13 @@ foreach ($mp3 in $mp3input){
         if ($song -eq 'convert'){break}
         if ($song -eq 'quit'){exit}
     }
+    if ($song -eq 'skip'){continue}
+    if ($song -eq 'convert'){break}
+    if ($song -eq 'quit'){exit}
     $index = $charas.indexof($song)
     $tracks += "$index"
     $inputmp3 += $mp3
-    Read-Host "Track"$mp3 '='$characters[$index]"`nPress enter to continue..."
+    Read-Host "Track"$mp3 '='$characters2[$index]"`nPress enter to continue..."
     $characters.RemoveAt($index)
 }
 Clear-Host
@@ -88,7 +92,7 @@ Get-ChildItem -Path .\bin\input_wav -File -Recurse | ForEach-Object {$_.Delete()
 
 # Shows output folder
 
-Read-Host "Conversion complete, press enter to end process and show output folder and the acpr folder (might fail)"
+Read-Host "Conversion complete, press enter to end process and show output folder and the acpr folder (might fail if you moved the install directory)"
 
 #Define the variable to hold the location of Currently Installed Programs
     $UninstallKey='SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' 
