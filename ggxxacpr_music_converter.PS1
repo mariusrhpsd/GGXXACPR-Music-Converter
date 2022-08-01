@@ -6,7 +6,7 @@ New-Item ".\bin\input_wav" -itemType Directory  | Out-Null
 Add-Type -AssemblyName System.Windows.Forms | Out-Null
 $TextInfo = (Get-Culture).TextInfo
 # Arranges of characters and their respective track number
-$characters = [System.Collections.Generic.List[System.Object]](Get-Content -Path .\bin\characters.txt )
+$characters = [System.Collections.Generic.List[System.Object]](Get-Content -Path .\bin\characters.txt)
 $characters2 = [System.Collections.Generic.List[System.Object]](Get-Content -Path .\bin\characters.txt)
 $charas = $characters.tolower()
 $track = @(Get-Content -Path .\bin\tracks.txt)
